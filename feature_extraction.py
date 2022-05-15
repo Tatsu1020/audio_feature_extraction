@@ -289,11 +289,19 @@ if __name__ == "__main__":
         data = convert_to_mono(data)
         sr, data = resample_signal(data)
         audio_name = re.findall("/([\d\w]*).wav", audio)[0]
-        print(audio_name)
+        
         feature_extractor = AudioFeatureExtraction(sr, data, audio_name)
         feature_extractor.display_signal()
-        spectrogram = feature_extractor.spectrogram(plot=True)
-        mel_scale_spectrogram = feature_extractor.mel_scale_spectrogram()
-        mfcc = feature_extractor.mel_frequency_cepstrum_coefficients()
+
+        feature_type = args.feature_type
+
+        if feature_type == "spectrogram":
+            feature_extractor.spectrogram(plot=True)
+
+        elif feature_type == "mel-spectrogram":
+            feature_extractor.mel_scale_spectrogram()
+
+        elif feature_type == "MFCC":
+            feature_extractor.mel_frequency_cepstrum_coefficients()
 
 
